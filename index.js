@@ -1,10 +1,10 @@
+import "babel-polyfill";
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import DataLoader from 'dataloader';
 import schema from './schema';
 
 const app = express();
-
 
 app.use(graphqlHTTP(req => {
   /*const cacheMap = new Map();
