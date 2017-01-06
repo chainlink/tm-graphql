@@ -7,7 +7,8 @@ import {
 import cartService from '../services/cart';
 import eventService from '../services/event';
 
-import { CartType } from './cart';
+import * as Cart from './cart'; //TODO: Figure out why CartInputType import on next line broken
+import { CartType, CartInputType } from './cart';
 import { EventType } from './event';
 
 const QueryType = new GraphQLObjectType({
@@ -35,7 +36,7 @@ const QueryType = new GraphQLObjectType({
     }
   })
 });
-/*
+
 const MutationType = new GraphQLObjectType({
   name: 'CartMutations',
   description: 'All the things we can change',
@@ -44,16 +45,16 @@ const MutationType = new GraphQLObjectType({
       type: CartType,
       description: 'Create a new cart',
       args: {
-        cart: { type: CartInputType }
+        cart: { type: Cart.CartInputType }
       },
-      resolve: (value, { article }) => {
-        return
+      resolve: (value, { cart }) => {
+        return cartService.createCart(cart);
       }
     }
   })
 })
-*/
+
 export default new GraphQLSchema({
-  query: QueryType//,
-  //mutation: MutationType
+  query: QueryType,
+  mutation: MutationType
 });

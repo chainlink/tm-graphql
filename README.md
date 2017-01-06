@@ -26,6 +26,30 @@ Open [http://localhost:5000](http://localhost:5000)
 
 **NOTE:** (Make sure to populate $cId in query variable section)
 
+Create Cart
+
+```
+mutation CreateCart {
+  createCart(cart:{
+    products: [{
+     product: "100051479EDC6332"
+     offers: [{
+      offer: "000000000001"
+    }]
+    qty:1
+    }]
+  }) {
+    id
+    reservations {
+      expiration
+      ItemDetails {
+        section
+      }
+    }
+  }
+}
+```
+
 Get Cart
 
 ```
