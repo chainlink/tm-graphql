@@ -1,17 +1,71 @@
 # tm-graphql
-GraphQL Wrapper for Tickermaster Open API
+GraphQL Wrapper for Ticketmaster Open API
 
 # Installing
 
 Uses Node v6.9.1
 
-Add your Api key to `APIKEY` on line 10 of `schema.js`
+Add file `secrets.json` with format:
+
+```
+{
+  "apikey": "YOUR TM DEVELOPER API KEY"
+}
+```
 
 ```
 npm install
 npm start
 ```
 
+Currently Get Cart Reads from saved Fixture
+
 Open [http://localhost:5000](http://localhost:5000)
 
-[Example Query](http://localhost:5000/?query=%7B%0A%20%20event(id%3A%20%221AvZZfpGkBqGJ76%22)%20%7B%0A%20%20%20%20name%0A%20%20%20%20offers(name%3A%20%22VIP1%22)%20%7B%0A%20%20%20%20%20%20name%0A%20%20%20%20%20%20description%0A%20%20%20%20%20%20prices%20%7B%0A%20%20%20%20%20%20%20%20total%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A)
+## Example Queries
+
+**NOTE:** (Make sure to populate $cId in query variable section)
+
+Get Cart
+
+```
+query cart($cId: String) {
+  cart(id: $cId) {
+    reservations {
+      expiration
+      ItemDetails {
+        section
+      }
+    }
+    fees {
+      label
+      amount
+      type
+    }
+    taxes {
+      amount
+      label
+      type
+    }
+    currency
+    totalPrice
+  }
+}
+```
+
+Get Event
+
+```
+query event($id: String) {
+  event(id: $id) {
+    name
+    offers(name: "ALLTIX") {
+      name
+      description
+      prices {
+        total
+      }
+    }
+  }
+}
+```
