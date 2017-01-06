@@ -59,10 +59,14 @@ export const CartType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: obj => obj.attributes.totals.price
     },
-    deliveryTypes: {
+    deliveries: { //NOTE: Before a delivery is selected this list is all available, after it becomes the one selected. Perhaps add a 'selected delivery ID?'
       type: new GraphQLList(DeliveryType),
       resolve: (obj, args) => {
-        return cartService.getDeliveries(obj.id)
+        if(obj.attributes.deliveries) {
+          return obj.attributes.deliveries
+        } else {
+          return cartService.getDeliveries(obj.id)
+        }
       }
     }
   })
@@ -109,7 +113,7 @@ export const ItemDetailType = new GraphQLObjectType({
 })
 
 export const DeliveryType = new GraphQLObjectType({
-  name: 'DeliveryType',
+  name: 'Delivery',
   fields: () => ({
     id: { type: GraphQLString },
     name: {

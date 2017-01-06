@@ -1,4 +1,4 @@
-import { fetchJSON, postJSON, deleteJSON } from '../lib';
+import { fetchJSON, postJSON, deleteJSON, patchJSON } from '../lib';
 import cart from '../fixtures/cart';
 
 function getCart(cartId) {
@@ -25,4 +25,21 @@ function getDeliveries(cartId) {
   .then(res => res.deliveries);
 }
 
-export default { getCart, createCart, deleteCart, getDeliveries }
+function setDelivery(cartId, deliveryId) {
+  return patchJSON(`/commerce/v2/shopping/carts/${cartId}/deliveries.json`, {
+    pollingCallbackUrl: "http://requestb.in/14hknvt1", //TODO: Remove Hax,
+    deliveries: [{ //TODO: Actually support multiple delivery methods??
+      op: 'add', //Not currently documented
+      deliveryId: deliveryId
+    }]
+  })
+  .then(res => res.cart);
+}
+
+export default {
+  getCart,
+  createCart,
+  deleteCart,
+  getDeliveries,
+  setDelivery
+}

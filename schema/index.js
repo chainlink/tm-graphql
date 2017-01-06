@@ -61,6 +61,17 @@ const MutationType = new GraphQLObjectType({
       resolve: (root, args) => {
         return cartService.deleteCart(args.id);
       }
+    },
+    selectDelivery: {
+      type: CartType,
+      description: 'Selects Delivery for a given cart',
+      args: {
+        cartId: { type: new GraphQLNonNull(GraphQLString) },
+        deliveryId: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve: (root, args) => {
+        return cartService.setDelivery(args.cartId, args.deliveryId)
+      }
     }
   })
 })

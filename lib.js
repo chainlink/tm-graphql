@@ -7,7 +7,7 @@ function fetchJSON(relativeUrl) {
   return fetch(`${BASEURL}${relativeUrl}?apikey=${apikey}`)
   .then(res => res.json())
   .then(res => {
-    console.log(res);
+    console.log(`GET: ${relativeUrl} \n`,res);
     return res;
   });
 }
@@ -21,7 +21,7 @@ function postJSON(relativeUrl, body) {
   })
   .then(res => res.json())
   .then(res => {
-    console.log(res);
+    console.log(`POST: ${relativeUrl} \n`,res);
     return res;
   });
 }
@@ -34,9 +34,28 @@ function deleteJSON(relativeUrl) {
   })
   .then(res => res.json())
   .then(res => {
-    console.log(res);
+    console.log(`DELETE: ${relativeUrl} \n`, res);
     return res;
   });
 }
 
-export { fetchJSON, postJSON, deleteJSON }
+function patchJSON(relativeUrl, body) {
+  return fetch(`${BASEURL}${relativeUrl}?apikey=${apikey}`,
+  {
+    method: 'PATCH',
+    body:    JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+  })
+  .then(res => res.json())
+  .then(res => {
+    console.log(`PATCH: ${relativeUrl} \n`,res);
+    return res;
+  });
+}
+
+export {
+  fetchJSON,
+  postJSON,
+  deleteJSON,
+  patchJSON
+}

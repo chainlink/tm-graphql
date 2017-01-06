@@ -44,7 +44,7 @@ mutation CreateCart {
         section
       }
     }
-    deliveryTypes {
+    deliveries {
       id
       name
     }
@@ -75,6 +75,31 @@ query cart($cId: String) {
     }
     currency
     totalPrice
+  }
+}
+```
+
+Delete Cart
+
+```
+mutation DeleteCart {
+  deleteCart(id: "682692fe-c287-4dbe-aa17-a0e719c3924d.jash1") {
+    totalPrice
+  }
+}
+```
+
+Select Delivery
+
+```
+mutation SelectDelivery {
+  selectDelivery(
+    cartId: "d4392a2d-1767-4065-82c2-00b67b9db39d.jash1"
+    deliveryId: "0b01dd84e0d7c5397bc427d0a66164fc"
+  ) {
+    deliveries {
+      name
+    }
   }
 }
 ```
