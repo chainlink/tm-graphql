@@ -8,6 +8,8 @@ import {
   GraphQLBoolean
 } from 'graphql';
 
+import cartService from '../services/cart';
+
 export const OffersInputType = new GraphQLInputObjectType({
   name: 'OffersInput',
   fields: () => ({
@@ -56,6 +58,12 @@ export const CartType = new GraphQLObjectType({
     totalPrice: {
       type: GraphQLString,
       resolve: obj => obj.attributes.totals.price
+    },
+    deliveryTypes: {
+      type: new GraphQLList(DeliveryType),
+      resolve: (obj, args) => {
+        return cartService.getDeliveries(obj.id)
+      }
     }
   })
 })
@@ -97,5 +105,36 @@ export const ItemDetailType = new GraphQLObjectType({
     startSeat: { type: GraphQLString },
     endSeat: { type: GraphQLString },
     ga: { type: GraphQLBoolean }
+  })
+})
+
+export const DeliveryType = new GraphQLObjectType({
+  name: 'DeliveryType',
+  fields: () => ({
+    id: { type: GraphQLString },
+    name: {
+      type: GraphQLString,
+      resolve: obj => obj.attributes.deliveryType
+    },
+    displayRank: {
+      type: GraphQLInt,
+      resolve: obj => obj.attributes.displayRank
+    },
+    longDescription: {
+      type: GraphQLString,
+      resolve: obj => obj.attributes.description.long
+    },
+    shortDescription: {
+      type: GraphQLString,
+      resolve: obj => obj.attributes.description.short
+    },
+    totalFee: {
+      type: GraphQLString,
+      resolve: obj => obj.attributes.totals.fee
+    }
+    //tax
+    //grand
+    //currency
+    //restrictions
   })
 })

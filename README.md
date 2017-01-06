@@ -18,15 +18,13 @@ npm install
 npm start
 ```
 
-Currently Get Cart Reads from saved Fixture
-
 Open [http://localhost:5000](http://localhost:5000)
 
 ## Example Queries
 
 **NOTE:** (Make sure to populate $cId in query variable section)
 
-Create Cart
+Create Cart and return Delivery Types (two api calls)
 
 ```
 mutation CreateCart {
@@ -45,6 +43,10 @@ mutation CreateCart {
       ItemDetails {
         section
       }
+    }
+    deliveryTypes {
+      id
+      name
     }
   }
 }

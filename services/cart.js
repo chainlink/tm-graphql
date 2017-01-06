@@ -3,9 +3,8 @@ import cart from '../fixtures/cart';
 
 function getCart(cartId) {
   console.log(`Getting cart: ${cartId}`);
-  console.log(cart);
-  //return fetchJSON(`/commerce/v2/shopping/carts/${cartId}.json`)
-  return Promise.resolve(cart)
+  return fetchJSON(`/commerce/v2/shopping/carts/${cartId}.json`)
+  //return Promise.resolve(cart)
   .then(res => res.cart);
 }
 
@@ -21,4 +20,9 @@ function deleteCart(cartId) {
   .then(res => res.cart);
 }
 
-export default { getCart, createCart, deleteCart }
+function getDeliveries(cartId) {
+  return fetchJSON(`/commerce/v2/checkout/carts/${cartId}/deliveries`) //TODO: pass .json?
+  .then(res => res.deliveries);
+}
+
+export default { getCart, createCart, deleteCart, getDeliveries }
