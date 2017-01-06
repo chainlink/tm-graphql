@@ -1,11 +1,11 @@
-import { fetchJSON } from './lib';
+import { fetchJSON } from '../lib';
 
-module.exports.getEvent = (eventId) => {
+function getEvent(eventId) {
   console.log('Getting event');
   return fetchJSON(`/discovery/v2/events/${eventId}.json`);
 }
 
-module.exports.getOffers = (eventId, name) => {
+function getOffers(eventId, name) {
   console.log('Getting Event Offers');
   return fetchJSON(`/commerce/v2/events/${eventId}/offers.json`)
   .then(json => json.offers)
@@ -19,3 +19,5 @@ module.exports.getOffers = (eventId, name) => {
     }
   });
 }
+
+export default { getEvent, getOffers }

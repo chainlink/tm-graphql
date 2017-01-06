@@ -1,5 +1,5 @@
-import { fetchJSON } from './lib';
-import cart from './fixtures/cart';
+import { fetchJSON } from '../lib';
+import cart from '../fixtures/cart';
 
 module.exports.getCart = (cartId) => {
   console.log(`Getting cart: ${cartId}`);
