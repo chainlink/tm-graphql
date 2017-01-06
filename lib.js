@@ -25,4 +25,18 @@ function postJSON(relativeUrl, body) {
     return res;
   });
 }
-export { fetchJSON, postJSON }
+
+function deleteJSON(relativeUrl) {
+  return fetch(`${BASEURL}${relativeUrl}?apikey=${apikey}`,
+  {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  })
+  .then(res => res.json())
+  .then(res => {
+    console.log(res);
+    return res;
+  });
+}
+
+export { fetchJSON, postJSON, deleteJSON }

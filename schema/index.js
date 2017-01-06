@@ -1,7 +1,8 @@
 import {
   GraphQLSchema,
   GraphQLObjectType,
-  GraphQLString
+  GraphQLString,
+  GraphQLNonNull
 } from 'graphql';
 
 import cartService from '../services/cart';
@@ -49,6 +50,16 @@ const MutationType = new GraphQLObjectType({
       },
       resolve: (value, { cart }) => {
         return cartService.createCart(cart);
+      }
+    },
+    deleteCart: {
+      type: CartType, //TODO: Make Delete Cart Type
+      description: 'Deletes an existing cart',
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve: (root, args) => {
+        return cartService.deleteCart(args.id);
       }
     }
   })
